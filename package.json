@@ -1,0 +1,22 @@
+{
+  "name": "otaniemi_transport",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SheikkiJ/Otaniemi_transport.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SheikkiJ/Otaniemi_transport/issues"
+  },
+  "homepage": "https://github.com/SheikkiJ/Otaniemi_transport#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
