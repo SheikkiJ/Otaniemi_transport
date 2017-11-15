@@ -15,7 +15,14 @@
     <h2>Otaniemi Transport</h2>
     <div id="map" class="map"></div>
     <script type="text/javascript">
+    var scaleLineControl = new ol.control.ScaleLine();
       var map = new ol.Map({
+        controls: ol.control.defaults({
+          zoom: true,
+          attribution: false
+        }).extend([
+          scaleLineControl
+        ]),
         target: 'map',
         layers: [
           new ol.layer.Tile({
