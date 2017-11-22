@@ -1,3 +1,15 @@
 {"type":"FeatureCollection","features":[
-{"type":"Feature","id":"1","properties":{"name":"Dipoli"},"geometry":{"type":"Point","coordinates":[24.832398552, 60.185172287]}}
+{"type":"Feature","id":"1","properties":{"name":"Dipoli on 5/5"},"geometry":{"type":"Point","coordinates":[24.832398552, 60.185172287]}},
+{"type":"Feature","id":"2","properties":{"name":"Olympic Housing"},"geometry":{"type":"Point","coordinates":[24.83794,60.18797]}},
+{"type":"Feature","id":"3","properties":{"name":"Hot Tub"},"geometry":{"type":"Point","coordinates":[24.83927,60.18807]}},
+{"type":"Feature","id":"4","properties":{"name":"End of the Dock"},"geometry":{"type":"Point","coordinates":[24.84073,60.18781]}},
+{"type":"Feature","id":"5","properties":{"name":"Church"},"geometry":{"type":"Point","coordinates":[24.83723,60.18936]}},
+{"type":"Feature","id":"6","properties":{"name":"Polyteekarimuseo"},"geometry":{"type":"Point","coordinates":[24.83654,60.18733]}},
+{"type":"Feature","id":"7","properties":{"name":"Bike Repair"},"geometry":{"type":"Point","coordinates":[24.83554,60.18798]}},
+{"type":"Feature","id":"8","properties":{"name":"Radisson Blu Hotel"},"geometry":{"type":"Point","coordinates":[24.83667,60.18387]}},
+{"type":"Feature","id":"9","properties":{"name":"Hotel"},"geometry":{"type":"Point","coordinates":[24.83102,60.17976]}},
+{"type":"Feature","id":"10","properties":{"name":"Charging Station"},"geometry":{"type":"Point","coordinates":[24.82890,60.18438]}},
+{"type":"Feature","id":"11","properties":{"name":"Charging Station"},"geometry":{"type":"Point","coordinates":[24.83251,60.18440]}},
+{"type":"Feature","id":"12","properties":{"name":"Charging Station"},"geometry":{"type":"Point","coordinates":[24.81787,60.18746]}},
+{"type":"Feature","id":"13","properties":{"name":"Charging Station"},"geometry":{"type":"Point","coordinates":[24.82609,60.18114]}}
 ]}
