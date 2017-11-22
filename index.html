@@ -11,9 +11,17 @@
 </head>
 <body>
   <h2 id="header">Visit Otaniemi</h2>
-  <div id="map" class="map"><div id="popup"></div></div>
+  <div id="map" class="map"></div>
+  <div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+  </div>
   <script type="text/javascript">
     var scaleLineControl = new ol.control.ScaleLine();
+    
+    var container = document.getElementById('popup');
+    var content = document.getElementById('popup-content');
+    var closer = document.getElementById('popup-closer');
     
     var vectorLayer = new ol.layer.Vector({
       source: new ol.source.Vector({
@@ -23,6 +31,20 @@
       style: pointStyleFunction
     });
     
+    var overlay = new ol.Overlay(({
+      element: container,
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250
+      }
+    }));
+    
+    closer.onclick = function() {
+      overlay.setPosition(undefined);
+      closer.blur();
+      return false;
+    };
+    
     var map = new ol.Map({
       controls: ol.control.defaults({
         zoom: true,
@@ -30,6 +52,7 @@
       }).extend([
       scaleLineControl
       ]),
+      overlays: [overlay],
       target: 'map',
       layers: [
       new ol.layer.Tile({
@@ -42,37 +65,19 @@
         zoom: 15
       })
     });
-
-    var element = document.getElementById('popup');
-
-    var popup = new ol.Overlay({
-        element: element,
-        positioning: 'bottom-center',
-        stopEvent: false
+    
+    map.on('singleclick', function(evt) {
+      var feature = map.forEachFeatureAtPixel(evt.pixel,
+      function(feature) {
+        return feature;
       });
-
-    map.addOverlay(popup);
-
-    map.on('click', function(evt) {
-        var feature = map.forEachFeatureAtPixel(evt.pixel,
-            function(feature) {
-              return feature;
-            });
-        if (feature) {
-          var coordinates = feature.getGeometry().getCoordinates();
-          popup.setPosition(coordinates);
-          $(element).popover({
-            'html': true,
-            'content': feature.get('name')
-          });
-          $(element).popover('show');
-        } 
+      if (feature) {
+        var coordinates = feature.getGeometry().getCoordinates();
+        content.innerHTML = '<p>' + feature.get('name') + '</p>';
+      overlay.setPosition(coordinates);
+      } 
     });
-
-    map.on('pointermove', function(evt) {
-      $(element).popover('destroy');
-    });
-
+    
     function pointStyleFunction() {
       return new ol.style.Style({
         image: new ol.style.Circle({
