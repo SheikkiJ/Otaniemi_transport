@@ -11,82 +11,22 @@
 </head>
 <body>
   <h2 id="header">Visit Otaniemi</h2>
-  <div id="map" class="map"></div>
+  <div id="map" class="map">
+    <div class="col-md-4">
+      <div id="switcher" class="btn-group" data-toggle="buttons">
+        <label id ="history" class="btn btn-primary btn-lg">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked>History
+        </label>
+        <label class="btn btn-primary active btn-lg">
+          <input type="radio" name="options" id="option2" autocomplete="off">Guide
+        </label>
+      </div>
+    </div>
+  </div>
   <div id="popup" class="ol-popup">
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content"></div>
   </div>
-  <script type="text/javascript">
-    var scaleLineControl = new ol.control.ScaleLine();
-    
-    var container = document.getElementById('popup');
-    var content = document.getElementById('popup-content');
-    var closer = document.getElementById('popup-closer');
-    
-    var vectorLayer = new ol.layer.Vector({
-      source: new ol.source.Vector({
-        url: 'data/points.geojson',
-        format: new ol.format.GeoJSON()
-      }),
-      style: pointStyleFunction
-    });
-    
-    var overlay = new ol.Overlay(({
-      element: container,
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250
-      }
-    }));
-    
-    closer.onclick = function() {
-      overlay.setPosition(undefined);
-      closer.blur();
-      return false;
-    };
-    
-    var map = new ol.Map({
-      controls: ol.control.defaults({
-        zoom: true,
-        attribution: false
-      }).extend([
-      scaleLineControl
-      ]),
-      overlays: [overlay],
-      target: 'map',
-      layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      }),
-      vectorLayer
-      ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([24.828187589, 60.184065394]),
-        zoom: 15
-      })
-    });
-    
-    map.on('singleclick', function(evt) {
-      var feature = map.forEachFeatureAtPixel(evt.pixel,
-      function(feature) {
-        return feature;
-      });
-      if (feature) {
-        var coordinates = feature.getGeometry().getCoordinates();
-        content.innerHTML = '<p>' + feature.get('name') + '</p>';
-      overlay.setPosition(coordinates);
-      } 
-    });
-    
-    function pointStyleFunction() {
-      return new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 10,
-          fill: new ol.style.Fill({color: 'rgba(0, 0, 255, 0.5)'}),
-          stroke: new ol.style.Stroke({color: 'blue', width: 1})
-        })
-      });
-    }
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>

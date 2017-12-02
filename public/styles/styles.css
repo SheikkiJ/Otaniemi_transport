@@ -1,6 +1,7 @@
-.body .map {
+.html .body .map {
     height: 100%;
     width: 100%;
+    position: fixed;
 }
 #header {
     text-align: center;
@@ -47,4 +48,14 @@
   }
   .ol-popup-closer:after {
     content: "✖";
+  }
+  .col-md-4 {
+    position: fixed;
+    z-index: 9000;
+    float: revert;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    width: auto;
   }
