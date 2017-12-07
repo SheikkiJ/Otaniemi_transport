@@ -20,6 +20,14 @@ var historyLayer = new ol.layer.Vector({
   style: pointStyleFunction
 });
 
+var trackLayer = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    url: 'data/track2.geojson',
+    format: new ol.format.GeoJSON()
+  }),
+  style: lineStyleFunction
+});
+
 var overlay = new ol.Overlay(({
   element: container,
   autoPan: true,
@@ -34,13 +42,13 @@ closer.onclick = function() {
   return false;
 };
 
-/*
-var raster_old = new ol.layer.Tile({
+
+var raster_guide = new ol.layer.Tile({
   source: new ol.source.XYZ({
     url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
   })
 });
-*/
+
 
 var raster = new ol.layer.Tile({
   source: new ol.source.Stamen({layer: 'watercolor'})
@@ -55,7 +63,7 @@ var map = new ol.Map({
   ]),
   overlays: [overlay],
   target: 'map',
-  layers: [raster,
+  layers: [raster, raster_guide, trackLayer,
     guideLayer, historyLayer
   ],
   view: new ol.View({
@@ -98,22 +106,28 @@ map.on('singleclick', function(evt) {
   $('#switcher').on('click', function(event) {
     if(event.target.id === 'history') {
       historyLayer.setVisible(true);
+      raster.setVisible(true);
+      raster_guide.setVisible(false);
       guideLayer.setVisible(false);
+      trackLayer.setVisible(false);
     }
     else {
+      raster_guide.setVisible(true);
       guideLayer.setVisible(true);
+      trackLayer.setVisible(true);
       historyLayer.setVisible(false);
     }
   });
   
   historyLayer.setVisible(false);
+  raster.setVisible(false);
   
   function pointStyleFunction(feature) {
     if(feature.get('hist')) {
       return new ol.style.Style({
         image: new ol.style.Icon({
-          src: 'img/Military_Flag_of_Finland.svg',
-          scale: 0.02
+          src: 'img/history.png',
+          scale: 0.05
         })
       });
     }
@@ -134,4 +148,15 @@ map.on('singleclick', function(evt) {
         })
       });
     }
+  }
+  
+  function lineStyleFunction(){
+    console.log("imhere");
+    return new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        width: 3,
+        color: '#000000',
+        lineDash: [.1, 5]
+      })
+    })
   }
