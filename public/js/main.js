@@ -50,13 +50,11 @@ closer.onclick = function() {
   return false;
 };
 
-
 var raster_guide = new ol.layer.Tile({
   source: new ol.source.XYZ({
     url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
   })
 });
-
 
 var raster = new ol.layer.Tile({
   source: new ol.source.Stamen({layer: 'watercolor'})
@@ -89,20 +87,17 @@ map.on('singleclick', function(evt) {
     try {
       var imageSrc = feature.get('image' );
       var text = feature.get('text');
-    }catch (e){
+    } catch (e) {
       var imageSrc = " ";
       var text = " ";
     }
-
-    
-    console.log(feature);
     
     if (feature) {
       var coordinates = feature.getGeometry().getCoordinates();
       if (feature.get('clickable')) {
         return feature;
       }
-      else if(feature.get('hist')) {
+      else if (feature.get('hist')) {
         content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br><br>' + feature.get('hist') + '</p>';
       }
       else {
@@ -112,7 +107,7 @@ map.on('singleclick', function(evt) {
     } 
     
     function checkifExist(source) {
-      if(source) {
+      if (source) {
         return source
       }
       else {
@@ -235,7 +230,6 @@ map.on('singleclick', function(evt) {
   }
   
   function lineStyleFunction(){
-    console.log("imhere");
     return new ol.style.Style({
       stroke: new ol.style.Stroke({
         width: 3,
