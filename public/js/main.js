@@ -70,10 +70,10 @@ map.on('singleclick', function(evt) {
     if (feature) {
       var coordinates = feature.getGeometry().getCoordinates();
       if(feature.get('hist')) {
-        content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br>' + feature.get('hist') + '</p>';
+        content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br><br>' + feature.get('hist') + '</p>';
       }
       else {
-        content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br>' + checkifExist(text) + '</p>';
+        content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br><br>' + checkifExist(text) + '</p>';
       }
       overlay.setPosition(coordinates);
     } 
