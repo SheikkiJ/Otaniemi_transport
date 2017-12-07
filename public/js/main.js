@@ -45,12 +45,12 @@ var map = new ol.Map({
     zoom: true,
     attribution: false
   }).extend([
-  scaleLineControl
+    scaleLineControl
   ]),
   overlays: [overlay],
   target: 'map',
   layers: [raster,
-  guideLayer, historyLayer
+    guideLayer, historyLayer
   ],
   view: new ol.View({
     center: ol.proj.fromLonLat([24.828187589, 60.184065394]),
@@ -60,51 +60,72 @@ var map = new ol.Map({
 
 map.on('singleclick', function(evt) {
   var feature = map.forEachFeatureAtPixel(evt.pixel,
-  function(feature) {
-    return feature;
-  });
-
-  if (feature) {
-    var coordinates = feature.getGeometry().getCoordinates();
-    if(feature.get('text')) {
-      content.innerHTML = '<p>' + feature.get('name') + '<br>' + feature.get('text') + '</p>';
-    }
-    else {
-      content.innerHTML = '<p>' + feature.get('name') + '</p>';
-    }
-    overlay.setPosition(coordinates);
-  } 
-});
-
-$('#switcher').on('click', function(event) {
-    if(event.target.id === 'history') {
-        historyLayer.setVisible(true);
-        guideLayer.setVisible(false);
+    function(feature) {
+      return feature;
+    });
+    
+    var imageSrc = feature.get('image' );
+    var text = feature.get('text');
+    
+    if (feature) {
+      var coordinates = feature.getGeometry().getCoordinates();
+      if(feature.get('hist')) {
+        content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br>' + feature.get('hist') + '</p>';
       }
       else {
-        guideLayer.setVisible(true);
-        historyLayer.setVisible(false);
+        content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br>' + checkifExist(text) + '</p>';
       }
-});
-
-historyLayer.setVisible(false);
-
-function pointStyleFunction(feature) {
-  if(feature.get('text')) {
-    return new ol.style.Style({
-      image: new ol.style.Icon({
-        src: 'img/Military_Flag_of_Finland.svg',
-        scale: 0.02
-      })
-    });
+      overlay.setPosition(coordinates);
+    } 
+    
+    function checkifExist(source) {
+      if(source) {
+        return source
+      }
+      else {
+        return '';
+      }
+    }
+    
+  });
+  
+  $('#switcher').on('click', function(event) {
+    if(event.target.id === 'history') {
+      historyLayer.setVisible(true);
+      guideLayer.setVisible(false);
+    }
+    else {
+      guideLayer.setVisible(true);
+      historyLayer.setVisible(false);
+    }
+  });
+  
+  historyLayer.setVisible(false);
+  
+  function pointStyleFunction(feature) {
+    if(feature.get('hist')) {
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/Military_Flag_of_Finland.svg',
+          scale: 0.02
+        })
+      });
+    }
+    else if(feature.get('name') === 'Enjoy the view') {
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/eyes.png',
+          scale: 0.2
+        })
+      });
+    }
+    else {
+      return new ol.style.Style({
+        image: new ol.style.Circle({
+          radius: 10,
+          fill: new ol.style.Fill({color: 'rgba(0, 0, 255, 0.5)'}),
+          stroke: new ol.style.Stroke({color: 'blue', width: 1})
+        })
+      });
+    }
   }
-  else {
-    return new ol.style.Style({
-      image: new ol.style.Circle({
-        radius: 10,
-        fill: new ol.style.Fill({color: 'rgba(0, 0, 255, 0.5)'}),
-        stroke: new ol.style.Stroke({color: 'blue', width: 1})
-      })
-    });
-  }
-}
