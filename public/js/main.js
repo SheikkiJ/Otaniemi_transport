@@ -93,7 +93,10 @@ map.on('singleclick', function(evt) {
 
     if (feature) {
       var coordinates = feature.getGeometry().getCoordinates();
-      if(feature.get('hist')) {
+      if (feature.get('clickable')) {
+        return feature;
+      }
+      else if(feature.get('hist')) {
         content.innerHTML = '<img src="' + checkifExist(imageSrc) + ' " ' + '<p>' + feature.get('name') + '<br><br>' + feature.get('hist') + '</p>';
       }
       else {
@@ -178,6 +181,38 @@ map.on('singleclick', function(evt) {
       return new ol.style.Style({
         image: new ol.style.Icon({
           src: 'img/hospital.png',
+          scale: 0.05
+        })
+      });
+    }
+    else if (feature.get('name') === 'Hot Tub'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/hottub.png',
+          scale: 0.1
+        })
+      });
+    }
+    else if (feature.get('name') === 'Charging Station'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/charging.png',
+          scale: 0.1
+        })
+      });
+    }
+    else if (feature.get('name') === 'Bike Repair'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/bikerepair.png',
+          scale: 0.1
+        })
+      });
+    }
+    else if (feature.get('name') === 'Hostel' || feature.get('name') === 'Radisson Blu Hotel'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/hotel.png',
           scale: 0.05
         })
       });
