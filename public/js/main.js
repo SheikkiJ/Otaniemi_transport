@@ -34,10 +34,16 @@ closer.onclick = function() {
   return false;
 };
 
-var raster = new ol.layer.Tile({
+/*
+var raster_old = new ol.layer.Tile({
   source: new ol.source.XYZ({
     url: 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
   })
+});
+*/
+
+var raster = new ol.layer.Tile({
+  source: new ol.source.Stamen({layer: 'watercolor'})
 });
 
 var map = new ol.Map({
