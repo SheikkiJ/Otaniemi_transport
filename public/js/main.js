@@ -12,6 +12,14 @@ var guideLayer = new ol.layer.Vector({
   style: pointStyleFunction
 });
 
+var restaurantsLayer = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    url: 'data/restaurants.geojson',
+    format: new ol.format.GeoJSON()
+  }),
+  style: pointStyleFunction
+});
+
 var historyLayer = new ol.layer.Vector({
   source: new ol.source.Vector({
     url: 'data/history.geojson',
@@ -64,7 +72,7 @@ var map = new ol.Map({
   overlays: [overlay],
   target: 'map',
   layers: [raster, raster_guide, trackLayer,
-    guideLayer, historyLayer
+    guideLayer, historyLayer, restaurantsLayer
   ],
   view: new ol.View({
     center: ol.proj.fromLonLat([24.828187589, 60.184065394]),
@@ -81,6 +89,8 @@ map.on('singleclick', function(evt) {
     var imageSrc = feature.get('image' );
     var text = feature.get('text');
     
+    console.log(feature);
+
     if (feature) {
       var coordinates = feature.getGeometry().getCoordinates();
       if(feature.get('hist')) {
@@ -109,12 +119,14 @@ map.on('singleclick', function(evt) {
       raster.setVisible(true);
       raster_guide.setVisible(false);
       guideLayer.setVisible(false);
+      restaurantsLayer.setVisible(false);
     }
     else {
       raster_guide.setVisible(true);
       guideLayer.setVisible(true);
       trackLayer.setVisible(true);
       historyLayer.setVisible(false);
+      restaurantsLayer.setVisible(true);
     }
   });
   
@@ -135,6 +147,38 @@ map.on('singleclick', function(evt) {
         image: new ol.style.Icon({
           src: 'img/eyes.png',
           scale: 0.2
+        })
+      });
+    }
+    else if (feature.get('name') === 'Bus stop'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/bus.png',
+          scale: 0.02
+        })
+      });
+    }
+    else if (feature.get('name') === 'Metro'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/metro.png',
+          scale: 0.02
+        })
+      });
+    }
+    else if (feature.get('text') === 'restaurant'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/restaurant.png',
+          scale: 0.03
+        })
+      });
+    }
+    else if (feature.get('name') === 'Healthcare'){
+      return new ol.style.Style({
+        image: new ol.style.Icon({
+          src: 'img/hospital.png',
+          scale: 0.05
         })
       });
     }
