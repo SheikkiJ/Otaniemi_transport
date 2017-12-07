@@ -1,5 +1,5 @@
 {"type":"FeatureCollection","features":[
-{"type":"Feature","id":"1","properties":{"name":"Dipoli restaurant", "image": "img/dipoli.png"},"geometry":{"type":"Point","coordinates":[24.832398552, 60.185172287]}},
+{"type":"Feature","id":"1","properties":{"name":"Dipoli on 5/5", "image": "img/dipoli.png"},"geometry":{"type":"Point","coordinates":[24.832398552, 60.185172287]}},
 
 {"type":"Feature","id":"3","properties":{"name":"Hot Tub"},"geometry":{"type":"Point","coordinates":[24.83927,60.18807]}},
 {"type":"Feature","id":"4","properties":{"name":"Enjoy the view", "text":"End of the Dock"},"geometry":{"type":"Point","coordinates":[24.84073,60.18781]}},
