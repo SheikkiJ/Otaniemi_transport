@@ -109,7 +109,6 @@ map.on('singleclick', function(evt) {
       raster.setVisible(true);
       raster_guide.setVisible(false);
       guideLayer.setVisible(false);
-      trackLayer.setVisible(false);
     }
     else {
       raster_guide.setVisible(true);
@@ -123,7 +122,7 @@ map.on('singleclick', function(evt) {
   raster.setVisible(false);
   
   function pointStyleFunction(feature) {
-    if(feature.get('hist')) {
+    if(feature.get('hist') && feature.get('name') != 'Enjoy the view') {
       return new ol.style.Style({
         image: new ol.style.Icon({
           src: 'img/history.png',
