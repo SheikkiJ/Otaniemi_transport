@@ -8,8 +8,8 @@
 }
 
 .ol-popup {
+    background-color: #D5F5FF;
     position: absolute;
-    background-color: white;
     -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
     filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
     padding: 15px;

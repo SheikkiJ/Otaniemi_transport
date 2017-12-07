@@ -86,11 +86,17 @@ map.on('singleclick', function(evt) {
       return feature;
     });
     
-    var imageSrc = feature.get('image' );
-    var text = feature.get('text');
+    try {
+      var imageSrc = feature.get('image' );
+      var text = feature.get('text');
+    }catch (e){
+      var imageSrc = " ";
+      var text = " ";
+    }
+
     
     console.log(feature);
-
+    
     if (feature) {
       var coordinates = feature.getGeometry().getCoordinates();
       if (feature.get('clickable')) {
